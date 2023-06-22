@@ -2,6 +2,7 @@ package com.cooksys.quiz_api.services.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import com.cooksys.quiz_api.dtos.QuestionRequestDto;
 import com.cooksys.quiz_api.dtos.QuestionResponseDto;
@@ -75,7 +76,10 @@ public class QuizServiceImpl implements QuizService {
 
   @Override
   public QuestionResponseDto getQuizQuestion(Long id) throws NotFoundException {
-    return null;
+    Quiz result = getQuiz(id);
+    Object[] questions = result.getQuestions().toArray();
+    Question rand = (Question) questions[new Random().nextInt(result.getQuestions().size())];
+    return questionMapper.entityToDto(rand);
   }
 
   @Override
