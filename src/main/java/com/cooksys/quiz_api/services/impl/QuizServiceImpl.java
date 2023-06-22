@@ -68,7 +68,9 @@ public class QuizServiceImpl implements QuizService {
 
   @Override
   public QuizResponseDto renameQuiz(Long id, String name) throws NotFoundException {
-    return null;
+    Quiz result = getQuiz(id);
+    result.setName(name);
+    return quizMapper.entityToDto(quizRepository.saveAndFlush(result));
   }
 
   @Override
