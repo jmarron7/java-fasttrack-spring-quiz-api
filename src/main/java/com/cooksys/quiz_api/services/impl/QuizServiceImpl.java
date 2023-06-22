@@ -44,6 +44,7 @@ public class QuizServiceImpl implements QuizService {
     }
     return optionalQuiz.get();
   }
+
   @Override
   public QuizResponseDto createQuiz(QuizRequestDto quizRequestDto) {
     Quiz quiz = quizMapper.requestEntity(quizRequestDto);
@@ -101,7 +102,9 @@ public class QuizServiceImpl implements QuizService {
 
   @Override
   public QuestionResponseDto deleteQuestion(Long id, Long questionID) throws NotFoundException {
-    return null;
+    Question question = getQuestion(id, questionID);
+    questionRepository.delete(question);
+    return questionMapper.entityToDto(question);
   }
 
 }
