@@ -5,6 +5,7 @@ import java.util.List;
 import com.cooksys.quiz_api.dtos.QuestionRequestDto;
 import com.cooksys.quiz_api.dtos.QuestionResponseDto;
 import com.cooksys.quiz_api.dtos.QuizResponseDto;
+import javassist.NotFoundException;
 
 public interface QuizService {
 
@@ -12,13 +13,13 @@ public interface QuizService {
 
   QuizResponseDto createQuiz();
 
-  QuizResponseDto deleteQuiz(Long id);
+  QuizResponseDto deleteQuiz(Long id) throws NotFoundException;
 
-  QuizResponseDto renameQuiz(Long id, String name);
+  QuizResponseDto renameQuiz(Long id, String name)throws NotFoundException;
 
-  QuestionResponseDto getQuizQuestion(Long id);
+  QuestionResponseDto getQuizQuestion(Long id)throws NotFoundException;
 
-  QuizResponseDto addQuestion(Long id, QuestionRequestDto questionRequestDto);
+  QuizResponseDto addQuestion(Long id, QuestionRequestDto questionRequestDto)throws NotFoundException;
 
-  QuestionResponseDto deleteQuestion(Long id, Long questionID);
+  QuestionResponseDto deleteQuestion(Long id, Long questionID)throws NotFoundException;
 }
