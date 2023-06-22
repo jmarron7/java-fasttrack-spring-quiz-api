@@ -39,7 +39,7 @@ public class QuizServiceImpl implements QuizService {
     Optional<Quiz> optionalQuiz = quizRepository.findById(id);
 
     if (optionalQuiz.isEmpty()) {
-      throw new NotFoundException("Quiz not found with id: " + id);
+      throw new NotFoundException("Quiz with id { " + id + " } not found.");
     }
     return optionalQuiz.get();
   }
