@@ -84,7 +84,19 @@ public class QuizServiceImpl implements QuizService {
 
   @Override
   public QuizResponseDto addQuestion(Long id, QuestionRequestDto questionRequestDto) throws NotFoundException {
-    return null;
+    Quiz quiz = getQuiz(id);
+
+    for (Question question : quiz.getQuestions()) {
+      question.setQuiz(quiz);
+      question.setText(questionRequestDto.getText());
+
+      for (Answer answer : question.getAnswers()) {
+        answer.setQuestion(question);
+      }
+    }
+
+    quiz.getQuestions().add(questionMapper.questionDtoToEntity(questionRequestDto));
+    return quizMapper.entityToDto(quizRepository.saveAndFlush(quiz));
   }
 
   @Override
