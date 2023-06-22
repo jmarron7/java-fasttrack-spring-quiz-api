@@ -45,6 +45,15 @@ public class QuizServiceImpl implements QuizService {
     return optionalQuiz.get();
   }
 
+  private Question getQuestion(Long id, Long questionID) throws NotFoundException {
+    Optional<Question> optionalQuestion = questionRepository.findByIdAndQuizId(questionID, id);
+
+    if (optionalQuestion.isEmpty()) {
+      throw new NotFoundException("Question with id { " + questionID + " } not found.");
+    }
+    return optionalQuestion.get();
+  }
+
   @Override
   public QuizResponseDto createQuiz(QuizRequestDto quizRequestDto) {
     Quiz quiz = quizMapper.requestEntity(quizRequestDto);
@@ -106,5 +115,4 @@ public class QuizServiceImpl implements QuizService {
     questionRepository.delete(question);
     return questionMapper.entityToDto(question);
   }
-
 }
