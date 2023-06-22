@@ -5,9 +5,8 @@ import java.util.List;
 import com.cooksys.quiz_api.dtos.QuizResponseDto;
 import com.cooksys.quiz_api.services.QuizService;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,4 +24,9 @@ public class QuizController {
   
   // TODO: Implement the remaining 6 endpoints from the documentation.
 
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public QuizResponseDto createQuiz(@RequestBody QuizRequestDto quizRequestDto) {
+    return quizService.createQuiz();
+  }
 }
