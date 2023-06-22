@@ -1,6 +1,7 @@
 package com.cooksys.quiz_api.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.cooksys.quiz_api.dtos.QuestionRequestDto;
 import com.cooksys.quiz_api.dtos.QuestionResponseDto;
@@ -34,6 +35,14 @@ public class QuizServiceImpl implements QuizService {
     return quizMapper.entitiesToDtos(quizRepository.findAll());
   }
 
+  private Quiz getQuiz(Long id) throws NotFoundException {
+    Optional<Quiz> optionalQuiz = quizRepository.findById(id);
+
+    if (optionalQuiz.isEmpty()) {
+      throw new NotFoundException("Quiz not found with id: " + id);
+    }
+    return optionalQuiz.get();
+  }
   @Override
   public QuizResponseDto createQuiz(QuizRequestDto quizRequestDto) {
     Quiz quiz = quizMapper.requestEntity(quizRequestDto);
@@ -52,7 +61,9 @@ public class QuizServiceImpl implements QuizService {
 
   @Override
   public QuizResponseDto deleteQuiz(Long id) throws NotFoundException {
-    return null;
+    Quiz result = getQuiz(id);
+    quizRepository.delete(result);
+    return quizMapper.entityToDto(result);
   }
 
   @Override
