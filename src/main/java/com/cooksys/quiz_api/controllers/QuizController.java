@@ -31,11 +31,11 @@ public class QuizController {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public QuizResponseDto createQuiz(@RequestBody QuizRequestDto quizRequestDto) {
-    return quizService.createQuiz();
+    return quizService.createQuiz(quizRequestDto);
   }
 
   @DeleteMapping("/{id}")
-  public QuizResponseDto deleteQuiz(@PathVariable Long id) {
+  public QuizResponseDto deleteQuiz(@PathVariable Long id) throws NotFoundException {
     return quizService.deleteQuiz(id);
   }
 
